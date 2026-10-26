@@ -321,6 +321,54 @@ details.notes summary:hover{color:var(--gold-text)}
 .sdtag{display:inline-block;margin-left:8px;padding:1px 7px;border:1px solid var(--gold);border-radius:999px;font-size:10.5px;letter-spacing:.06em;color:var(--gold);font-weight:600;vertical-align:middle;text-transform:uppercase}
 .tbl tr.side2>*{border-top:1px dashed var(--line-soft)}
 .chk.wide{grid-column:1/-1;align-items:flex-start;line-height:1.35}
+
+/* Series en filas · carga · reps · RIR · descanso */
+.sets.rows{display:flex;flex-direction:column;gap:8px}
+.srow{display:grid;grid-template-columns:44px repeat(var(--n,3),minmax(0,1fr)) 46px;gap:6px;align-items:center;min-width:0}
+.srow.shead{align-items:end;margin-bottom:-2px}
+.srow.shead span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;text-align:center;overflow:hidden;text-overflow:ellipsis}
+.sl{display:flex;flex-direction:column;font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1;color:var(--fg);letter-spacing:.02em}
+.sl small{font-family:var(--f-body);font-weight:500;font-size:10px;letter-spacing:.03em;color:var(--gold-text);margin-top:3px;text-transform:uppercase}
+.srow .inw{min-width:0}
+.srow .setin{padding:0 4px;text-align:center;font-size:18px}
+.srow .ririn,.srow .repin{flex:none;width:100%;height:48px;font-size:18px}
+.repin{min-width:0;height:48px;padding:0;text-align:center;font-size:18px;font-weight:600;background:var(--in-bg);border:1px solid var(--in-line);border-radius:8px;color:var(--fg)}
+.repin::placeholder{font-size:14px;font-weight:500;color:var(--faint)}
+.repin:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 35%,transparent)}
+.srow.appr .setin,.srow.appr .ririn,.srow.appr .repin{background:var(--appr-bg);border-color:var(--appr-line)}
+.tbl .repin.tr{display:block;width:60px;height:26px;margin-top:3px;font-size:12px;border-radius:6px}
+.tbl .repin.tr::placeholder{font-size:10px}
+.tbl .rtbtn.sm{margin-left:6px;vertical-align:middle}
+
+/* Botón de descanso */
+.rtbtn{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;min-width:44px;padding:0 12px;border-radius:999px;border:1px solid var(--appr-line);background:var(--surface-2);color:var(--gold-text);font-weight:600;font-size:15px;font-variant-numeric:tabular-nums;justify-content:center}
+.rtbtn.sm{min-height:34px;min-width:34px;padding:0 8px}
+.rtbtn.set{margin-left:0;min-height:48px;width:100%;min-width:0;padding:0;border-radius:10px}
+.rtbtn:active{filter:brightness(1.2)}
+.rtbtn.on{background:var(--gold);color:var(--on-gold);border-color:var(--gold)}
+
+/* Barra del cronómetro */
+.restbar{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));z-index:60;max-width:560px;margin:0 auto;background:var(--surface);border:1.5px solid var(--gold);border-radius:16px;padding:10px 12px 12px;box-shadow:0 10px 30px rgba(0,0,0,.45);display:grid;gap:6px}
+.restbar[hidden]{display:none}
+.rb-top{display:flex;align-items:center;gap:8px;min-width:0}
+.rb-name{flex:1;min-width:0;font-size:12.5px;letter-spacing:.04em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rb-x{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:15px}
+.rb-main{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rb-time{font-family:var(--f-display);font-weight:700;font-size:54px;line-height:1;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:var(--fg);min-width:0}
+.rb-ctl{display:flex;gap:6px;flex:none}
+.rb-ctl button{min-width:48px;height:48px;padding:0 6px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);color:var(--fg);font-weight:600;font-size:15px}
+.rb-ctl .rb-p{background:var(--gold);color:var(--on-gold);border-color:var(--gold);font-size:14px}
+.rb-prog{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.rb-prog i{display:block;height:100%;width:0;background:var(--gold);border-radius:99px}
+.restbar.paused .rb-time{opacity:.55}
+.restbar.done{border-color:var(--up)}
+.restbar.done .rb-time{color:var(--up)}
+.restbar.done .rb-name{color:var(--up);font-weight:600}
+.restbar.done .rb-prog i{background:var(--up)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body.has-rest{padding-bottom:132px}
+@media (max-width:380px){ .rb-time{font-size:44px} .rb-ctl button{min-width:44px} .srow{gap:5px;grid-template-columns:40px repeat(var(--n,3),minmax(0,1fr)) 42px} }
+@media (prefers-reduced-motion:no-preference){ .restbar.done .rb-prog i{animation:rbp 1s ease-in-out infinite alternate} @keyframes rbp{from{opacity:.55}to{opacity:1}} }
 </style>
 
 <div id="app" aria-live="off"></div>
@@ -357,6 +405,7 @@ function rebuild(){
 function U(e){ return e.unit==null?'kg':e.unit; }
 function rirOn(){ return PROG.rir!==false; }
 function rpeOn(){ return PROG.rpe!==false; }
+function repsLogOn(){ return PROG.repsLog!==false; }
 function repsOf(e,i){ return (e.rr&&e.rr[i])||e.reps||''; }
 function repsVary(e){ if(!e.rr||!e.rr.length) return false; var f=repsOf(e,0); for(var i=1;i<(e.sets||1);i++) if(repsOf(e,i)!==f) return true; return false; }
 function pauta(e){
@@ -391,6 +440,7 @@ function kOf(e,sd){ return sd?e.id+'_R':e.id; }
 function sidesOf(e){ return e.uni?[0,1]:[0]; }
 function setsOf(a,exId,w){ var l=a.log&&a.log[exId]; var arr=(l&&l['w'+w])||[]; var out=[]; for(var i=0;i<MAXSETS;i++) out.push(arr[i]==null?'':String(arr[i])); return out; }
 function rirOf(a,exId,w){ var l=a.rir&&a.rir[exId]; var arr=(l&&l['w'+w])||[]; var out=[]; for(var i=0;i<MAXSETS;i++) out.push(arr[i]==null?'':String(arr[i])); return out; }
+function rpOf(a,exId,w){ var l=a.rp&&a.rp[exId]; var arr=(l&&l['w'+w])||[]; var out=[]; for(var i=0;i<MAXSETS;i++) out.push(arr[i]==null?'':String(arr[i])); return out; }
 function rpeOf(a,exId,w){ var l=a.rpe&&a.rpe[exId]; var v=l&&l['w'+w]; return v==null?'':String(v); }
 function rirAvg(a,e,w,sd){ var r=rirOf(a,kOf(e,sd||0),w), s=0, n=0; for(var i=0;i<e.sets;i++){ var v=num(r[i]); if(v!=null){ s+=v; n++; } } return n?s/n:null; }
 function bestOf(a,e,w,sd){ var s=setsOf(a,kOf(e,sd||0),w), m=null; for(var i=0;i<e.sets;i++){ var v=num(s[i]); if(v!=null && (m==null||v>m)) m=v; } return m; }
@@ -607,15 +657,25 @@ function tabsHtml(){
   }).join('')+'</div></nav>';
 }
 function setInput(a,e,w,i,table,sd){
-  sd=sd||0; var v=setsOf(a,kOf(e,sd),w)[i].replace('.',','), u=U(e), ap=i<(e.appr||0);
-  var vary0=repsVary(e), lab=ap?(e.appr>1?'S'+(i+1)+(vary0?' · Ap.':' · Aprox.'):(vary0?'S1 · Ap.':'S1 · Aprox.')):'S'+(i+1);
-  var aria=e.name+(e.uni?', '+SIDEL[sd].toLowerCase():'')+', semana '+w+', serie '+(i+1)+' ('+u+')';
-  var inp='<input class="setin'+(table?' tin':'')+'" inputmode="decimal" autocomplete="off" maxlength="6" data-ex="'+esc(e.id)+'" data-w="'+w+'" data-i="'+i+'" data-sd="'+sd+'" value="'+esc(v)+'" aria-label="'+esc(aria)+'"'+(S.ro?' readonly':'')+(table?'':' placeholder="0"')+'>';
-  var rir='';
-  if(rirOn()) rir='<input class="ririn'+(table?' tr':'')+'" inputmode="numeric" autocomplete="off" maxlength="2" data-ex="'+esc(e.id)+'" data-w="'+w+'" data-i="'+i+'" data-sd="'+sd+'" value="'+esc(rirOf(a,kOf(e,sd),w)[i])+'" placeholder="RIR" title="RIR: repeticiones que te quedaban en reserva" aria-label="'+esc('RIR, '+e.name+', semana '+w+', serie '+(i+1))+'"'+(S.ro?' readonly':'')+'>';
-  if(table) return '<div class="set'+(ap?' appr':'')+'">'+inp+rir+'</div>';
-  var vary=repsVary(e), sfx=vary?(repsOf(e,i)?'<b class="lr"> · ×'+esc(repsOf(e,i))+'</b>':''):(u?'<b class="lu"> · '+esc(u)+'</b>':'');
-  return '<div class="set'+(ap?' appr':'')+'"><span>'+lab+sfx+'</span><div class="pair"><div class="inw">'+inp+(u?'<em>'+esc(u)+'</em>':'')+'</div>'+rir+'</div></div>';
+  sd=sd||0; var key=kOf(e,sd), v=setsOf(a,key,w)[i].replace('.',','), u=U(e), ap=i<(e.appr||0);
+  var side=e.uni?', '+SIDEL[sd].toLowerCase():'';
+  var aria=e.name+side+', semana '+w+', serie '+(i+1)+' ('+u+')';
+  var base='data-ex="'+esc(e.id)+'" data-w="'+w+'" data-i="'+i+'" data-sd="'+sd+'"';
+  var inp='<input class="setin'+(table?' tin':'')+'" inputmode="decimal" autocomplete="off" maxlength="6" '+base+' value="'+esc(v)+'" aria-label="'+esc(aria)+'"'+(S.ro?' readonly':'')+(table?'':' placeholder="0"')+'>';
+  var rep='', rir='';
+  if(repsLogOn()) rep='<input class="repin'+(table?' tr':'')+'" inputmode="numeric" autocomplete="off" maxlength="3" '+base+' value="'+esc(rpOf(a,key,w)[i])+'" placeholder="'+esc(repsOf(e,i)||'reps')+'" title="Repeticiones realizadas" aria-label="'+esc('Repeticiones, '+e.name+side+', semana '+w+', serie '+(i+1))+'"'+(S.ro?' readonly':'')+'>';
+  if(rirOn()) rir='<input class="ririn'+(table?' tr':'')+'" inputmode="numeric" autocomplete="off" maxlength="2" '+base+' value="'+esc(rirOf(a,key,w)[i])+'" placeholder="RIR" title="RIR: repeticiones que te quedaban en reserva" aria-label="'+esc('RIR, '+e.name+side+', semana '+w+', serie '+(i+1))+'"'+(S.ro?' readonly':'')+'>';
+  if(table) return '<div class="set'+(ap?' appr':'')+'">'+inp+rep+rir+'</div>';
+  return '<div class="srow'+(ap?' appr':'')+'"><span class="sl">S'+(i+1)+(ap?'<small>Aprox.</small>':'')+'</span><div class="inw">'+inp+'</div>'+rep+rir+restBtn(e,'set',i,sd)+'</div>';
+}
+function setsHead(e){
+  return '<div class="srow shead" aria-hidden="true"><span></span><span>'+esc(U(e)||'Carga')+'</span>'+(repsLogOn()?'<span>Reps</span>':'')+(rirOn()?'<span>RIR</span>':'')+'<span></span></div>';
+}
+function restBtn(e,mode,i,sd){
+  var t=restSecs(e), ico='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="14" r="7.5"/><path d="M12 14v-3.5M9.5 2.5h5M12 2.5V6.5"/></svg>';
+  var at=mode==='set'?' data-i="'+i+'" data-sd="'+(sd||0)+'"':'';
+  var lab='Iniciar descanso de '+clock(t)+', '+e.name+(mode==='set'?', serie '+(i+1)+(e.uni?', '+SIDEL[sd||0].toLowerCase():''):'');
+  return '<button class="rtbtn'+(mode?' '+mode:'')+'" data-act="rest" data-ex="'+esc(e.id)+'"'+at+' title="Descanso '+clock(t)+'" aria-label="'+esc(lab)+'">'+ico+'</button>';
 }
 function cardHtml(a,e,w){
   var note=(a.notes&&a.notes[e.id])||'', n=e.sets||1, eid=esc(e.id), sds=sidesOf(e);
@@ -624,7 +684,7 @@ function cardHtml(a,e,w){
   var sets='';
   sds.forEach(function(sd){
     var st=''; for(var i=0;i<n;i++) st+=setInput(a,e,w,i,false,sd);
-    sets+=lab(sd)+'<div class="sets c'+cols+(rirOn()?' rir':'')+'">'+st+'</div>';
+    sets+=lab(sd)+'<div class="sets rows" style="--n:'+(1+(repsLogOn()?1:0)+(rirOn()?1:0))+'">'+setsHead(e)+st+'</div>';
   });
   var rpe=(rpeOn()?'<label class="rpe"><span>Esfuerzo percibido <i>1-10</i></span><input class="rpein" inputmode="decimal" autocomplete="off" maxlength="4" data-ex="'+eid+'" data-w="'+w+'" value="'+esc(rpeOf(a,e.id,w).replace('.',','))+'" placeholder="—" aria-label="'+esc('Esfuerzo percibido de 1 a 10, '+e.name+', semana '+w)+'"'+(S.ro?' readonly':'')+'></label>':'');
   var prog='';
@@ -666,7 +726,7 @@ function tableViewHtml(a,day){
     (sec.ex||[]).forEach(function(e){
      sidesOf(e).forEach(function(sd){
       var eid=esc(e.id);
-      h+='<tr data-ex="'+eid+'" data-sd="'+sd+'"'+(sd?' class="side2"':'')+'><td class="stick"><div class="exn"><i>'+NUM[e.id]+'</i>'+esc(e.name)+(e.uni?'<b class="sdtag">'+SIDEN[sd]+'</b>':'')+'</div></td><td class="txt">'+(sd?'':esc(pauta(e)))+'</td><td class="txt">'+(sd?'':esc(e.rest||''))+'</td>';
+      h+='<tr data-ex="'+eid+'" data-sd="'+sd+'"'+(sd?' class="side2"':'')+'><td class="stick"><div class="exn"><i>'+NUM[e.id]+'</i>'+esc(e.name)+(e.uni?'<b class="sdtag">'+SIDEN[sd]+'</b>':'')+'</div></td><td class="txt">'+(sd?'':esc(pauta(e)))+'</td><td class="txt">'+(sd?'':esc(e.rest||'')+' '+restBtn(e,'sm'))+'</td>';
       for(var w=1;w<=WEEKS;w++){
         for(var i=0;i<ms;i++){
           if(i>=e.sets) h+='<td class="na'+(i===0?' gl':'')+'"></td>';
@@ -721,7 +781,6 @@ function editCardHtml(day,si,ei,e,count){
       '<label class="fld"><span>Descanso</span><input class="pf" '+at+' data-f="rest" maxlength="14" value="'+esc(e.rest)+'" placeholder="90 s"></label>'+
       '<label class="fld"><span>Unidad</span><input class="pf" '+at+' data-f="unit" maxlength="8" value="'+esc(U(e))+'" list="units" placeholder="kg"></label>'+
       '<label class="chk wide"><input type="checkbox" class="pf" data-ex="'+eid+'" data-f="uni"'+(e.uni?' checked':'')+'> Ejercicio unilateral: una línea de carga para el lado izquierdo y otra para el derecho</label>'+
-      rrHtml(e)+
       '<label class="fld wide"><span>Indicación (opcional)</span><input class="pf" '+at+' data-f="hint" maxlength="120" value="'+esc(e.hint||'')+'" placeholder="Ej.: anota la altura en cm"></label>'+
     '</div>'+
     '<div class="ctl"><button class="iconbtn" data-act="mvex" '+at+' data-d="-1" aria-label="Subir ejercicio"'+(ei===0?' disabled':'')+'>↑</button><button class="iconbtn" data-act="mvex" '+at+' data-d="1" aria-label="Bajar ejercicio"'+(ei===count-1?' disabled':'')+'>↓</button>'+
@@ -754,7 +813,7 @@ function editPanelHtml(){
   return '<div class="panel"><p><b>Modo edición</b>Cambia ejercicios, series, repeticiones, descansos, semanas, títulos y subtítulo. Las cargas ya anotadas se conservan.</p>'+
     '<div class="rowf" style="align-items:center"><div class="fld"><span>Semanas de seguimiento</span><div class="stp"><button data-act="weeks" data-d="-1" aria-label="Quitar una semana"'+(WEEKS<=1?' disabled':'')+'>−</button><b>'+WEEKS+'</b><button data-act="weeks" data-d="1" aria-label="Añadir una semana"'+(WEEKS>=MAXWEEKS?' disabled':'')+'>+</button></div></div>'+
     '<button class="btn ghost sm" data-act="addday">＋ Añadir día</button></div>'+
-    '<div class="flags"><label class="chk"><input type="checkbox" class="pflag" data-f="rir"'+(rirOn()?' checked':'')+'> Anotar RIR en cada serie</label><label class="chk"><input type="checkbox" class="pflag" data-f="rpe"'+(rpeOn()?' checked':'')+'> Anotar esfuerzo percibido (1-10)</label></div></div>';
+    '<div class="flags"><label class="chk"><input type="checkbox" class="pflag" data-f="repsLog"'+(repsLogOn()?' checked':'')+'> Anotar repeticiones realizadas en cada serie</label><label class="chk"><input type="checkbox" class="pflag" data-f="rir"'+(rirOn()?' checked':'')+'> Anotar RIR en cada serie</label><label class="chk"><input type="checkbox" class="pflag" data-f="rpe"'+(rpeOn()?' checked':'')+'> Anotar esfuerzo percibido (1-10)</label></div></div>';
 }
 
 function resumenHtml(a){
@@ -786,6 +845,7 @@ function guiaHtml(a){
     '<li>Cada día de entrenamiento tiene su pestaña ('+tabs+'). Los ejercicios y las series × repeticiones son los de la rutina de este registro.</li>'+
     '<li>Después de cada sesión, elige la semana (1 a '+WEEKS+') y escribe la carga de cada serie. Con decimales usa coma o punto (42,5).</li>'+
     '<li>Pon la fecha de la sesión arriba. En ejercicios de peso corporal anota la variante o el lastre en Notas.</li>'+
+    '<li>Cada serie lleva su carga, las repeticiones que has hecho (la casilla muestra las previstas) y el RIR. Pulsa el botón del cronómetro junto al ejercicio para contar el descanso: suena y vibra al terminar, y puedes sumar o restar 15 s.</li>'+
     '<li>En un ejercicio unilateral (se marca en «Editar rutina») hay una línea de cargas para el lado izquierdo y otra para el derecho, cada una con su RIR, su progresión y su gráfico.</li>'+
     '<li>Si un ejercicio tiene series de aproximación, sus primeras casillas, <span class="key a">en dorado</span>, son esas series. Cada ejercicio tiene su unidad (kg, cm…), que puedes cambiar.</li>'+
     '<li>Junto a cada carga puedes anotar el RIR (repeticiones que te quedaban en reserva al acabar la serie) y, por ejercicio y semana, el esfuerzo percibido de 1 (muy suave) a 10 (máximo). Se pueden desactivar en «Editar rutina».</li>'+
@@ -834,6 +894,7 @@ function render(){
 }
 function refresh(){
   var a=cur(); if(!a) return;
+  syncRestBtns();
   $app.querySelectorAll('[data-d]').forEach(function(el){
     var k=el.dataset.d, e=EX[el.dataset.ex], w=+el.dataset.w, sd=+el.dataset.sd||0;
     if(k==='wk'){ var dy=DAYBY[S.tab]; el.className='dot'+(dy&&weekHasData(a,dy,w)?' has':''); return; }
@@ -899,6 +960,16 @@ function onSet(el){
   var p={log:{}}; p.log[ex]={}; p.log[ex]['w'+w]=arr;
   patch(a.id,p); refresh();
 }
+function onRep(el){
+  var v=el.value.replace(/[^0-9]/g,'').slice(0,3);
+  if(el.value!==v) el.value=v;
+  var a=cur(); if(!a||S.ro) return;
+  var ex=el.dataset.ex+(el.dataset.sd==='1'?'_R':''), w=+el.dataset.w, i=+el.dataset.i, arr=rpOf(a,ex,w);
+  if(arr[i]===v) return;
+  arr[i]=v; while(arr.length && arr[arr.length-1]==='') arr.pop();
+  var p={rp:{}}; p.rp[ex]={}; p.rp[ex]['w'+w]=arr;
+  patch(a.id,p);
+}
 function onRir(el){
   var v=el.value.replace(/[^0-9]/g,'').slice(0,2); if(v!==''&&+v>10) v='10';
   if(el.value!==v) el.value=v;
@@ -936,6 +1007,7 @@ $app.addEventListener('input',function(ev){
   var t=ev.target, c=t.classList;
   if(c.contains('setin')) onSet(t);
   else if(c.contains('ririn')) onRir(t);
+  else if(c.contains('repin')) onRep(t);
   else if(c.contains('rpein')) onRpe(t);
   else if(c.contains('datein')) onDate(t);
   else if(c.contains('pf')) onPf(t);
@@ -951,15 +1023,15 @@ $app.addEventListener('change',function(ev){
 });
 $app.addEventListener('keydown',function(ev){
   var t=ev.target;
-  if(ev.key==='Enter' && t.classList && /\b(setin|ririn|rpein)\b/.test(t.className)){
+  if(ev.key==='Enter' && t.classList && /\b(setin|ririn|repin|rpein)\b/.test(t.className)){
     ev.preventDefault();
-    var all=Array.prototype.slice.call($app.querySelectorAll('input.setin,input.ririn,input.rpein')), i=all.indexOf(t);
+    var all=Array.prototype.slice.call($app.querySelectorAll('input.setin,input.repin,input.ririn,input.rpein')), i=all.indexOf(t);
     if(all[i+1]) all[i+1].focus(); else t.blur();
   } else if(ev.key==='Enter' && (t.id==='newName')){ ev.preventDefault(); doCreate(); }
   else if(ev.key==='Enter' && t.id==='renName'){ ev.preventDefault(); doRename(); }
   else if(ev.key==='Enter' && t.tagName==='INPUT' && /\b(pf|pd|ps|pp)\b/.test(t.className)){ ev.preventDefault(); t.blur(); }
 });
-$app.addEventListener('focusin',function(ev){ if(ev.target.classList&&/\b(setin|ririn|rpein)\b/.test(ev.target.className)){ try{ ev.target.select(); }catch(e){} } });
+$app.addEventListener('focusin',function(ev){ if(ev.target.classList&&/\b(setin|ririn|repin|rpein)\b/.test(ev.target.className)){ try{ ev.target.select(); }catch(e){} } });
 $app.addEventListener('focusout',function(){ setTimeout(function(){ if(S.dirty && !inField()) render(); },0); });
 (function(){ var fi=document.getElementById('importFile'); if(fi) fi.addEventListener('change',function(){ if(fi.files&&fi.files[0]) readImport(fi.files[0]); }); })();
 function doCreate(){
@@ -994,6 +1066,7 @@ $app.addEventListener('click',function(ev){
   else if(act==='week'){ S.week[S.tab]=+ds.w; render(); }
   else if(act==='today'&&a){ var p={dates:{}}; p.dates[ds.day]={}; p.dates[ds.day]['w'+ds.w]=todayISO(); patch(a.id,p); render(); }
   else if(act==='csv'&&a) exportCsv(a);
+  else if(act==='rest') startRest(ds.ex,ds.i==null?null:+ds.i,+ds.sd||0);
   else if(act==='bkall') doBackup(true);
   else if(act==='bkone') doBackup(false);
   else if(act==='impick'){ var fi=document.getElementById('importFile'); if(fi){ fi.value=''; fi.click(); } }
@@ -1096,7 +1169,7 @@ function cleanProg(p){
   if(!isObj(p)||!Array.isArray(p.days)||!p.days.length) return null;
   var seen={}, uniq=function(v,pre){ var id=sid(v,pre); while(seen[id]) id=pre+rid(); seen[id]=1; return id; };
   var out={title:str(p.title,40),subtitle:str(p.subtitle,60),note:str(p.note,300),weeks:clamp(parseInt(p.weeks,10)||8,1,MAXWEEKS),days:[]};
-  if(p.rir===false) out.rir=false; if(p.rpe===false) out.rpe=false;
+  if(p.rir===false) out.rir=false; if(p.repsLog===false) out.repsLog=false; if(p.rpe===false) out.rpe=false;
   p.days.slice(0,30).forEach(function(d){
     if(!isObj(d)) return;
     var day={id:uniq(d.id,'g'),tab:str(d.tab,14),eyebrow:str(d.eyebrow,50),title:str(d.title,60),sections:[]};
@@ -1121,7 +1194,7 @@ function cleanProg(p){
 function cleanAthlete(x){
   if(!isObj(x)) return null;
   return { id:sid(x.id,'a'), name:str(x.name,40).trim()||'Sin nombre', createdAt:(+x.createdAt>0?+x.createdAt:Date.now()),
-    prog:cleanProg(x.prog)||clone(DEFAULT_PROG), log:cleanSets(x.log), rir:cleanSets(x.rir), rpe:cleanRpe(x.rpe), dates:cleanDates(x.dates), notes:cleanNotes(x.notes) };
+    prog:cleanProg(x.prog)||clone(DEFAULT_PROG), log:cleanSets(x.log), rir:cleanSets(x.rir), rp:cleanSets(x.rp), rpe:cleanRpe(x.rpe), dates:cleanDates(x.dates), notes:cleanNotes(x.notes) };
 }
 function parseBackup(d){
   if(!isObj(d)||d.app!=='registro-cargas'||!Array.isArray(d.athletes)) throw new Error('formato');
@@ -1181,6 +1254,7 @@ async function exportCsv(a){
   function q(s){ return '"'+String(s==null?'':s).replace(/"/g,'""')+'"'; }
   var mx=1; DAYS.forEach(function(d){ if(MAXS[d.id]>mx) mx=MAXS[d.id]; });
   var head=['Día','Ejercicio','Series x reps','Descanso','Semana','Fecha']; for(var i=1;i<=mx;i++) head.push('S'+i);
+  for(i=1;i<=mx;i++) head.push('Reps S'+i);
   for(i=1;i<=mx;i++) head.push('RIR S'+i);
   head=head.concat(['Esfuerzo percibido','Mejor serie','Unidad','Notas']);
   var rows=[head];
@@ -1188,10 +1262,11 @@ async function exportCsv(a){
     sidesOf(e).forEach(function(sd){
     for(var w=1;w<=WEEKS;w++){
       var s=setsOf(a,kOf(e,sd),w), b=bestOf(a,e,w,sd), dt=dateOf(a,d.id,w);
-      if(b==null && !dt && !rpeOf(a,e.id,w)) continue;
+      if(b==null && !dt && !rpeOf(a,e.id,w) && !rpOf(a,kOf(e,sd),w).some(function(x){return x!=='';})) continue;
       var r=[d.tab,e.name+(e.uni?' ('+SIDEN[sd]+')':''),pauta(e),e.rest||'',w,dt];
-      var rr=rirOf(a,kOf(e,sd),w);
+      var rr=rirOf(a,kOf(e,sd),w), rpp=rpOf(a,kOf(e,sd),w);
       for(var k=0;k<mx;k++) r.push(k<e.sets?s[k].replace('.',','):'');
+      for(k=0;k<mx;k++) r.push(k<e.sets?rpp[k]:'');
       for(k=0;k<mx;k++) r.push(k<e.sets?rr[k]:'');
       r=r.concat([rpeOf(a,e.id,w).replace('.',','),b==null?'':fmt(b),U(e),(a.notes&&a.notes[e.id])||'']);
       rows.push(r);
@@ -1202,6 +1277,76 @@ async function exportCsv(a){
   try{ await S.dl.save({filename:'Registro_cargas_'+a.name.replace(/[^\w\-]+/g,'_')+'.csv',data:text}); }
   catch(e){ if(!e||e.code!=='declined') setStatus('No se pudo exportar',true); }
 }
+
+/* ───────── Cronómetro de descanso ───────── */
+function restSecs(e){
+  var t=String(e&&e.rest||'').toLowerCase().replace(',','.').trim(), m, n;
+  if(!t) return 90;
+  if((m=t.match(/(\d+)\s*:\s*(\d{1,2})/))) return clamp(+m[1]*60+(+m[2]),5,3600);
+  if((m=t.match(/(\d+(?:\.\d+)?)\s*(min|m\b|'|′)/))) return clamp(Math.round(parseFloat(m[1])*60),5,3600);
+  if((m=t.match(/(\d+(?:\.\d+)?)\s*(s|seg|"|″)/))) return clamp(Math.round(parseFloat(m[1])),5,3600);
+  if((m=t.match(/(\d+(?:\.\d+)?)/))){ n=parseFloat(m[1]); return clamp(Math.round(n>=15?n:n*60),5,3600); }
+  return 90;
+}
+function clock(sec){ sec=Math.max(0,Math.round(sec)); var m=Math.floor(sec/60), s=sec%60; return m+':'+(s<10?'0':'')+s; }
+var T={ex:null,name:'',total:0,end:0,left:0,run:false,fin:false,iv:null}, AC=null, WL=null;
+function restEl(){
+  var el=document.getElementById('rest'); if(el) return el;
+  el=document.createElement('div'); el.id='rest'; el.className='restbar'; el.hidden=true;
+  el.innerHTML='<div class="rb-top"><span class="rb-name"></span><button class="rb-x" data-r="x" aria-label="Cerrar cronómetro">✕</button></div>'+
+    '<div class="rb-main"><div class="rb-time" role="timer">0:00</div><div class="rb-ctl"><button data-r="-" aria-label="Restar 15 segundos">−15</button><button data-r="p" class="rb-p" aria-label="Pausar">❚❚</button><button data-r="+" aria-label="Sumar 15 segundos">+15</button><button data-r="r" aria-label="Reiniciar">↺</button></div></div>'+
+    '<div class="rb-prog"><i></i></div><span class="sr" aria-live="assertive"></span>';
+  el.addEventListener('click',function(ev){
+    var b=ev.target.closest&&ev.target.closest('[data-r]'); if(!b) return;
+    var k=b.dataset.r, now=Date.now();
+    if(k==='x') stopRest();
+    else if(k==='r'){ T.end=now+T.total*1000; T.run=true; T.fin=false; }
+    else if(k==='p'){ if(T.run){ T.run=false; T.left=T.end-now; } else { T.run=true; T.end=now+T.left; } }
+    else { var d=(k==='+'?15:-15)*1000; if(T.run) T.end+=d; else T.left=Math.max(0,T.left+d); T.total=Math.max(5,T.total+(d/1000)); if(Date.now()<T.end) T.fin=false; }
+    tickRest();
+  });
+  document.body.appendChild(el); return el;
+}
+function beep(){
+  try{
+    if(!AC) return; var t0=AC.currentTime;
+    [0,.28,.56].forEach(function(o,i){ var os=AC.createOscillator(), g=AC.createGain(); os.type='sine'; os.frequency.value=i===2?1175:880;
+      g.gain.setValueAtTime(0.0001,t0+o); g.gain.exponentialRampToValueAtTime(0.5,t0+o+.02); g.gain.exponentialRampToValueAtTime(0.0001,t0+o+.22);
+      os.connect(g); g.connect(AC.destination); os.start(t0+o); os.stop(t0+o+.25); });
+  }catch(e){}
+  try{ if(navigator.vibrate) navigator.vibrate([220,110,220,110,380]); }catch(e){}
+}
+function tickRest(){
+  var el=document.getElementById('rest'); if(!el||el.hidden||!T.ex) return;
+  var ms=T.run?T.end-Date.now():T.left, over=ms<=0;
+  if(T.run && over && !T.fin){ T.fin=true; if(-ms<4000){ beep(); el.querySelector('.sr').textContent='Descanso terminado'; } }
+  var t=el.querySelector('.rb-time'), pr=el.querySelector('.rb-prog i'), p=el.querySelector('.rb-p');
+  t.textContent=over?'+'+clock(Math.floor(-ms/1000)):clock(Math.ceil(ms/1000));
+  pr.style.width=(over?100:Math.max(0,Math.min(100,100-ms/(T.total*1000)*100)))+'%';
+  el.classList.toggle('done',over&&T.fin); el.classList.toggle('paused',!T.run);
+  p.textContent=T.run?'❚❚':'▶'; p.setAttribute('aria-label',T.run?'Pausar':'Continuar');
+  el.querySelector('.rb-name').textContent=(over&&T.fin?'¡Descanso terminado! · ':'Descanso · ')+T.name;
+}
+function syncRestBtns(){
+  Array.prototype.forEach.call($app.querySelectorAll('.rtbtn'),function(b){ var on=!!T.ex&&b.dataset.ex===T.ex; if(on&&b.dataset.i!=null) on=(+b.dataset.i===T.i&&(+b.dataset.sd||0)===T.sd); b.classList.toggle('on',on); });
+}
+function startRest(exId,idx,sd){
+  var e=EX[exId]; if(!e) return;
+  try{ var AX=window.AudioContext||window.webkitAudioContext; if(AX){ if(!AC) AC=new AX(); if(AC.resume) AC.resume(); } }catch(err){}
+  try{ if(navigator.wakeLock&&navigator.wakeLock.request) navigator.wakeLock.request('screen').then(function(l){ WL=l; },function(){}); }catch(err){}
+  var secs=restSecs(e);
+  T.ex=exId; T.i=idx==null?-1:idx; T.sd=sd||0; T.name=e.name; T.total=secs; T.end=Date.now()+secs*1000; T.left=secs*1000; T.run=true; T.fin=false;
+  var el=restEl(); el.hidden=false; document.body.classList.add('has-rest');
+  if(T.iv) clearInterval(T.iv); T.iv=setInterval(tickRest,250);
+  tickRest(); syncRestBtns();
+}
+function stopRest(){
+  if(T.iv) clearInterval(T.iv); T.iv=null; T.ex=null; T.run=false;
+  var el=document.getElementById('rest'); if(el) el.hidden=true;
+  document.body.classList.remove('has-rest'); syncRestBtns();
+  try{ if(WL&&WL.release) WL.release(); }catch(err){} WL=null;
+}
+document.addEventListener('visibilitychange',function(){ if(!document.hidden) tickRest(); });
 
 /* ───────── Arranque ───────── */
 async function init(){
