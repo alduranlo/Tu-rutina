@@ -369,6 +369,78 @@ details.notes summary:hover{color:var(--gold-text)}
 body.has-rest{padding-bottom:132px}
 @media (max-width:380px){ .rb-time{font-size:44px} .rb-ctl button{min-width:44px} .srow{gap:5px;grid-template-columns:40px repeat(var(--n,3),minmax(0,1fr)) 42px} }
 @media (prefers-reduced-motion:no-preference){ .restbar.done .rb-prog i{animation:rbp 1s ease-in-out infinite alternate} @keyframes rbp{from{opacity:.55}to{opacity:1}} }
+
+/* ───── Móvil: letras y botones grandes, una sola columna ───── */
+@media (max-width:760px){
+  body{font-size:16px}
+  .cards{grid-template-columns:minmax(0,1fr)}
+  .status{font-size:13px}
+  .brand-s{font-size:13px}
+  .btn{font-size:16px}
+  .btn.sm{min-height:44px;padding:8px 14px;font-size:15px}
+  .who,.editbtn,.seg button{min-height:46px;font-size:16px}
+  .tab{font-size:19px;padding:15px 14px 12px}
+  .tab.addtab{min-height:46px}
+  .eyebrow{font-size:16px}
+  .wks .lbl{font-size:13px}
+  .wk{width:46px;height:46px;font-size:21px}
+  .datef{font-size:15px}
+  .datef label{flex:0 0 100%}
+  .datef input{flex:1 1 auto;min-width:0;max-width:220px}
+  .datef input{min-height:46px;font-size:16px}
+  .pill{font-size:14px;padding:5px 12px}
+  .hint{font-size:14.5px}
+  .num{width:34px;height:34px;font-size:20px}
+  .c-head h3{font-size:26px}
+  .sdlab{font-size:13px}
+  .srow{grid-template-columns:46px repeat(var(--n,3),minmax(0,1fr)) 48px}
+  .srow.shead span{font-size:12.5px}
+  .sl{font-size:22px}
+  .sl small{font-size:11px}
+  .srow .setin,.srow .repin,.srow .ririn{height:54px;font-size:21px}
+  .repin::placeholder,.ririn::placeholder{font-size:15px}
+  .rtbtn.set{min-height:54px;border-radius:10px}
+  .rtbtn.set svg{width:22px;height:22px}
+  .rpe{font-size:16px}
+  .rpein{width:88px;height:50px;font-size:19px}
+  .live{font-size:15.5px}
+  .chip{font-size:14px;padding:4px 11px}
+  .st span{font-size:12px}
+  .st b{font-size:19px}
+  details.notes summary{font-size:16px;min-height:46px}
+  .notein{font-size:16px;min-height:90px}
+  .kpi span{font-size:13px}
+  .rt th{font-size:14px}
+  .rt td{font-size:15.5px}
+  .rt .dayrow td{font-size:14px}
+  .panel p{font-size:15px}
+  .stp button,.iconbtn{width:46px;height:46px}
+  .stp b{font-size:21px}
+  .fld span{font-size:13px}
+  .fld input,.pf,.pd,.ps,.pp,.name-in{font-size:16px;min-height:48px}
+  .brand-lbl{font-size:12px}
+  .brand-in,.brand-lbl .brand-in{font-size:16px;min-height:44px}
+  .bkhint{font-size:14px}
+  .tbl .setin.tin,.tbl .ririn.tr,.tbl .repin.tr,.tbl .rpein.tin,.tbl .datein{font-size:16px}
+  .tbl .ririn.tr,.tbl .repin.tr{height:34px;width:64px}
+  .tbl .rtbtn.sm{min-height:40px;min-width:40px}
+  .rb-name{font-size:14px}
+  .rb-x{width:44px;height:44px}
+  .rb-ctl button{min-width:52px;height:52px;font-size:16px}
+  .rb-time{font-size:56px}
+  .restbar{padding:12px 14px 14px}
+  body.has-rest{padding-bottom:150px}
+  .spk .ax{font-size:12.5px}
+  .spk .val{font-size:13.5px}
+  .spk .empty{font-size:13.5px}
+  .spark svg{max-height:140px}
+}
+@media (max-width:380px){
+  .srow{gap:5px;grid-template-columns:42px repeat(var(--n,3),minmax(0,1fr)) 46px}
+  .srow .setin,.srow .repin,.srow .ririn{font-size:20px}
+  .rb-time{font-size:46px}
+  .rb-ctl button{min-width:46px}
+}
 </style>
 
 <div id="app" aria-live="off"></div>
